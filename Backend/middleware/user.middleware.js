@@ -1,12 +1,12 @@
 const jwt = require("jsonwebtoken");
-const { User } = require("../database/index");
+const { User } = require("../database/model");
 
 async function userMiddleware(req, res, next) {
   try {
     const token =
       req.cookies?.accessToken ||
       req.header("Authorization")?.replace("Bearer ", "");
-    console.log("Recieved token:", token);
+    // console.log("Recieved token:", token);
 
     if (!token) {
       return res.status(401).json({

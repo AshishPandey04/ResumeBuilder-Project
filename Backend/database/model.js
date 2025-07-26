@@ -124,22 +124,12 @@ const ResumeSchema = new mongoose.Schema({
       },
     ],
     achievements: [String],
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now,
-  },
+  }
+},{
+    timestamps:true
 });
 
 
-ResumeSchema.pre("save", function (next) {
-  this.updatedAt = Date.now();
-  next();
-});
 
 
 const Resume = mongoose.model("Resume", ResumeSchema);

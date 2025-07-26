@@ -1,5 +1,7 @@
 const express = require("express")
 const dotenv =require("dotenv")
+const resumeRoutes=require("./routes/resume.routes")
+const userRoutes=require("./routes/user.routes")
 
 dotenv.config();
 const connectDB = require("./database/db");
@@ -17,6 +19,8 @@ app.get("/healthy",function(req,res){
 })
 
 // write all routes here
+app.use("/user",userRoutes)
+app.use("/resume",resumeRoutes)
 
 
 

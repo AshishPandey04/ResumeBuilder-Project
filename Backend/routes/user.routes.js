@@ -1,6 +1,7 @@
 const {Router} = require("express")
 const userMiddleware = require("../middleware/user.middleware");
-const { User } = require("../database/index");
+const { User } = require("../database/model");
+
 const router=Router()
 
 
@@ -12,7 +13,7 @@ const generateAccessToken = async (userId) => {
     user.accessToken = accessToken;
     await user.save({ validateBeforeSave: false });
 
-    return { accessToken };
+    return accessToken ;
   } catch (error) {
     throw new Error("Something went wrong while generating Access Token.");
   }
@@ -98,12 +99,12 @@ router.post("/login", async (req, res) => {
       msg: "Password is Wrong",
     });
   }
-  const { accessToken } = await generateAccessToken(
+  const accessToken  = await generateAccessToken(
     user._id
   );
 
   const loggedInUser = await User.findById(user._id).select(
-    "-password -accessToken"
+    "-password "
   );
 
   const options = {
